@@ -1,6 +1,9 @@
 # cvpr
 computer vision and pattern recognition
 
+## open the files
+At("https://colab.research.google.com/")
+
 ## The issue
 Getting the message "Sorry, something went wrong. Reload?" when viewing an *.ipynb on a GitHub blob page.
 
