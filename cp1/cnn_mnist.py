@@ -71,6 +71,11 @@ a = x_train[digit].reshape(28,28)
 plt.imshow(a, cmap='gray_r')
 print(f"Image (#{digit}): Which is digit '{y_train[digit]}'")
 
+"""##**Adam Optimizer**
+
+#Normalized Data
+"""
+
 model = keras.Sequential([
     keras.Input(shape=(28,28,1)),
     
@@ -88,8 +93,6 @@ model = keras.Sequential([
     layers.Dense(units=10, activation='softmax')
 ])
 model.summary()
-
-"""##**Adam Optimizer**"""
 
 model.compile(
     optimizer='adam', 
@@ -99,33 +102,6 @@ model.compile(
 
 # normalize data
 h = model.fit(x=x_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
-
-model = keras.Sequential([
-    keras.Input(shape=(28,28,1)),
-    
-    # hidden layer
-    layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
-    layers.MaxPooling2D(pool_size=(2,2)),
-    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
-    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
-    layers.MaxPooling2D(pool_size=(2,2)),
-    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
-
-    layers.Flatten(),
-    layers.Dense(128, activation='relu'),
-
-    layers.Dense(units=10, activation='softmax')
-])
-model.summary()
-
-model.compile(
-    optimizer='adam', 
-    loss='sparse_categorical_crossentropy', 
-    metrics=['accuracy']
-)
-
-# without normalize data
-h2 = model.fit(x=x2_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
 
 plt.figure(figsize=(15,5))
 plt.subplot(1,2,1)
@@ -146,37 +122,10 @@ plt.legend(loc='upper right')
 
 plt.show()
 
-# without normalization
-plt.figure(figsize=(15,5))
-plt.subplot(1,2,1)
-plt.plot(h2.history['accuracy'], 'o-', label='train accuracy')
-plt.plot(h2.history['val_accuracy'], 'o-', label = 'validation accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.grid(True)
-plt.legend(loc='lower right')
-
-plt.subplot(1,2,2)
-plt.plot(h2.history['loss'], 'o-', label='train loss')
-plt.plot(h2.history['val_loss'], 'o-', label='validation loss')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.grid(True)
-plt.legend(loc='upper right')
-
-plt.show()
-
 test_loss, test_acc = model.evaluate(x_test, y_test)
 print('\nTest accuracy:', test_acc)
 
-# without normalization
-test_loss2, test_acc2 = model.evaluate(x2_test, y_test)
-print('\nTest accuracy:', test_acc2)
-
 predictions = model.predict(x_test)
-
-# without normalization
-predictions2 = model.predict(x2_test)
 
 ROWS = 5
 COLS = 20
@@ -206,6 +155,62 @@ for r in range(ROWS):
         
 plt.tight_layout()
 plt.show()
+
+"""#Without Normalization"""
+
+model = keras.Sequential([
+    keras.Input(shape=(28,28,1)),
+    
+    # hidden layer
+    layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
+
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+
+    layers.Dense(units=10, activation='softmax')
+])
+model.summary()
+
+model.compile(
+    optimizer='adam', 
+    loss='sparse_categorical_crossentropy', 
+    metrics=['accuracy']
+)
+
+# without normalize data
+h2 = model.fit(x=x2_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
+
+# without normalization
+plt.figure(figsize=(15,5))
+plt.subplot(1,2,1)
+plt.plot(h2.history['accuracy'], 'o-', label='train accuracy')
+plt.plot(h2.history['val_accuracy'], 'o-', label = 'validation accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.grid(True)
+plt.legend(loc='lower right')
+
+plt.subplot(1,2,2)
+plt.plot(h2.history['loss'], 'o-', label='train loss')
+plt.plot(h2.history['val_loss'], 'o-', label='validation loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.grid(True)
+plt.legend(loc='upper right')
+
+plt.show()
+
+# without normalization
+test_loss2, test_acc2 = model.evaluate(x2_test, y_test)
+print('\nTest accuracy:', test_acc2)
+
+# without normalization
+predictions2 = model.predict(x2_test)
 
 # without normalization
 ROWS = 5
@@ -237,7 +242,10 @@ for r in range(ROWS):
 plt.tight_layout()
 plt.show()
 
-"""##**SGD Optimizer**"""
+"""##**SGD Optimizer**
+
+#Normalized Data
+"""
 
 model = keras.Sequential([
     keras.Input(shape=(28,28,1)),
@@ -266,33 +274,6 @@ model.compile(
 # normalize data
 h3 = model.fit(x=x_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
 
-model = keras.Sequential([
-    keras.Input(shape=(28,28,1)),
-    
-    # hidden layer
-    layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
-    layers.MaxPooling2D(pool_size=(2,2)),
-    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
-    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
-    layers.MaxPooling2D(pool_size=(2,2)),
-    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
-
-    layers.Flatten(),
-    layers.Dense(128, activation='relu'),
-
-    layers.Dense(units=10, activation='softmax')
-])
-model.summary()
-
-model.compile(
-    optimizer='sgd', 
-    loss='sparse_categorical_crossentropy', 
-    metrics=['accuracy']
-)
-
-# without normalize data
-h4 = model.fit(x=x2_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
-
 plt.figure(figsize=(15,5))
 plt.subplot(1,2,1)
 plt.plot(h3.history['accuracy'], 'o-', label='train accuracy')
@@ -312,37 +293,10 @@ plt.legend(loc='upper right')
 
 plt.show()
 
-# without normalization
-plt.figure(figsize=(15,5))
-plt.subplot(1,2,1)
-plt.plot(h4.history['accuracy'], 'o-', label='train accuracy')
-plt.plot(h4.history['val_accuracy'], 'o-', label = 'validation accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.grid(True)
-plt.legend(loc='lower right')
-
-plt.subplot(1,2,2)
-plt.plot(h4.history['loss'], 'o-', label='train loss')
-plt.plot(h4.history['val_loss'], 'o-', label='validation loss')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.grid(True)
-plt.legend(loc='upper right')
-
-plt.show()
-
 test_loss3, test_acc3 = model.evaluate(x_test, y_test)
 print('\nTest accuracy:', test_acc)
 
-# without normalization
-test_loss4, test_acc4 = model.evaluate(x2_test, y_test)
-print('\nTest accuracy:', test_acc2)
-
 predictions3 = model.predict(x_test)
-
-# without normalization
-predictions4 = model.predict(x2_test)
 
 ROWS = 5
 COLS = 20
@@ -372,6 +326,62 @@ for r in range(ROWS):
         
 plt.tight_layout()
 plt.show()
+
+"""#Without Normalization"""
+
+model = keras.Sequential([
+    keras.Input(shape=(28,28,1)),
+    
+    # hidden layer
+    layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
+
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+
+    layers.Dense(units=10, activation='softmax')
+])
+model.summary()
+
+model.compile(
+    optimizer='sgd', 
+    loss='sparse_categorical_crossentropy', 
+    metrics=['accuracy']
+)
+
+# without normalize data
+h4 = model.fit(x=x2_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
+
+# without normalization
+plt.figure(figsize=(15,5))
+plt.subplot(1,2,1)
+plt.plot(h4.history['accuracy'], 'o-', label='train accuracy')
+plt.plot(h4.history['val_accuracy'], 'o-', label = 'validation accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.grid(True)
+plt.legend(loc='lower right')
+
+plt.subplot(1,2,2)
+plt.plot(h4.history['loss'], 'o-', label='train loss')
+plt.plot(h4.history['val_loss'], 'o-', label='validation loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.grid(True)
+plt.legend(loc='upper right')
+
+plt.show()
+
+# without normalization
+test_loss4, test_acc4 = model.evaluate(x2_test, y_test)
+print('\nTest accuracy:', test_acc2)
+
+# without normalization
+predictions4 = model.predict(x2_test)
 
 # without normalization
 ROWS = 5
@@ -403,7 +413,10 @@ for r in range(ROWS):
 plt.tight_layout()
 plt.show()
 
-"""##**RMSProp Optimizer**"""
+"""##**RMSProp Optimizer**
+
+#Normalized Data
+"""
 
 model = keras.Sequential([
     keras.Input(shape=(28,28,1)),
@@ -432,33 +445,6 @@ model.compile(
 # normalize data
 h5 = model.fit(x=x_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
 
-model = keras.Sequential([
-    keras.Input(shape=(28,28,1)),
-    
-    # hidden layer
-    layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
-    layers.MaxPooling2D(pool_size=(2,2)),
-    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
-    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
-    layers.MaxPooling2D(pool_size=(2,2)),
-    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
-
-    layers.Flatten(),
-    layers.Dense(128, activation='relu'),
-
-    layers.Dense(units=10, activation='softmax')
-])
-model.summary()
-
-model.compile(
-    optimizer='RMSProp', 
-    loss='sparse_categorical_crossentropy', 
-    metrics=['accuracy']
-)
-
-# without normalize data
-h6 = model.fit(x=x2_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
-
 plt.figure(figsize=(15,5))
 plt.subplot(1,2,1)
 plt.plot(h5.history['accuracy'], 'o-', label='train accuracy')
@@ -478,37 +464,10 @@ plt.legend(loc='upper right')
 
 plt.show()
 
-# without normalization
-plt.figure(figsize=(15,5))
-plt.subplot(1,2,1)
-plt.plot(h6.history['accuracy'], 'o-', label='train accuracy')
-plt.plot(h6.history['val_accuracy'], 'o-', label = 'validation accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.grid(True)
-plt.legend(loc='lower right')
-
-plt.subplot(1,2,2)
-plt.plot(h6.history['loss'], 'o-', label='train loss')
-plt.plot(h6.history['val_loss'], 'o-', label='validation loss')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.grid(True)
-plt.legend(loc='upper right')
-
-plt.show()
-
 test_loss5, test_acc5 = model.evaluate(x_test, y_test)
 print('\nTest accuracy:', test_acc)
 
-# without normalization
-test_loss6, test_acc6 = model.evaluate(x2_test, y_test)
-print('\nTest accuracy:', test_acc2)
-
 predictions5 = model.predict(x_test)
-
-# without normalization
-predictions6 = model.predict(x2_test)
 
 ROWS = 5
 COLS = 20
@@ -538,6 +497,62 @@ for r in range(ROWS):
         
 plt.tight_layout()
 plt.show()
+
+"""#Without Normalization"""
+
+model = keras.Sequential([
+    keras.Input(shape=(28,28,1)),
+    
+    # hidden layer
+    layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
+
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+
+    layers.Dense(units=10, activation='softmax')
+])
+model.summary()
+
+model.compile(
+    optimizer='RMSProp', 
+    loss='sparse_categorical_crossentropy', 
+    metrics=['accuracy']
+)
+
+# without normalize data
+h6 = model.fit(x=x2_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
+
+# without normalization
+plt.figure(figsize=(15,5))
+plt.subplot(1,2,1)
+plt.plot(h6.history['accuracy'], 'o-', label='train accuracy')
+plt.plot(h6.history['val_accuracy'], 'o-', label = 'validation accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.grid(True)
+plt.legend(loc='lower right')
+
+plt.subplot(1,2,2)
+plt.plot(h6.history['loss'], 'o-', label='train loss')
+plt.plot(h6.history['val_loss'], 'o-', label='validation loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.grid(True)
+plt.legend(loc='upper right')
+
+plt.show()
+
+# without normalization
+test_loss6, test_acc6 = model.evaluate(x2_test, y_test)
+print('\nTest accuracy:', test_acc2)
+
+# without normalization
+predictions6 = model.predict(x2_test)
 
 # without normalization
 ROWS = 5
