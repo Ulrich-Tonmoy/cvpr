@@ -78,6 +78,9 @@ model = keras.Sequential([
     layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
     layers.MaxPooling2D(pool_size=(2,2)),
     layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
 
     layers.Flatten(),
     layers.Dense(128, activation='relu'),
@@ -96,6 +99,30 @@ model.compile(
 
 # normalize data
 h = model.fit(x=x_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
+
+model = keras.Sequential([
+    keras.Input(shape=(28,28,1)),
+    
+    # hidden layer
+    layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
+
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+
+    layers.Dense(units=10, activation='softmax')
+])
+model.summary()
+
+model.compile(
+    optimizer='adam', 
+    loss='sparse_categorical_crossentropy', 
+    metrics=['accuracy']
+)
 
 # without normalize data
 h2 = model.fit(x=x2_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
@@ -212,6 +239,24 @@ plt.show()
 
 """##**SGD Optimizer**"""
 
+model = keras.Sequential([
+    keras.Input(shape=(28,28,1)),
+    
+    # hidden layer
+    layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
+
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+
+    layers.Dense(units=10, activation='softmax')
+])
+model.summary()
+
 model.compile(
     optimizer='sgd', 
     loss='sparse_categorical_crossentropy', 
@@ -220,6 +265,30 @@ model.compile(
 
 # normalize data
 h3 = model.fit(x=x_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
+
+model = keras.Sequential([
+    keras.Input(shape=(28,28,1)),
+    
+    # hidden layer
+    layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
+
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+
+    layers.Dense(units=10, activation='softmax')
+])
+model.summary()
+
+model.compile(
+    optimizer='sgd', 
+    loss='sparse_categorical_crossentropy', 
+    metrics=['accuracy']
+)
 
 # without normalize data
 h4 = model.fit(x=x2_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
@@ -336,6 +405,24 @@ plt.show()
 
 """##**RMSProp Optimizer**"""
 
+model = keras.Sequential([
+    keras.Input(shape=(28,28,1)),
+    
+    # hidden layer
+    layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
+
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+
+    layers.Dense(units=10, activation='softmax')
+])
+model.summary()
+
 model.compile(
     optimizer='RMSProp', 
     loss='sparse_categorical_crossentropy', 
@@ -344,6 +431,30 @@ model.compile(
 
 # normalize data
 h5 = model.fit(x=x_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
+
+model = keras.Sequential([
+    keras.Input(shape=(28,28,1)),
+    
+    # hidden layer
+    layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2,2)),
+    layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
+
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+
+    layers.Dense(units=10, activation='softmax')
+])
+model.summary()
+
+model.compile(
+    optimizer='RMSProp', 
+    loss='sparse_categorical_crossentropy', 
+    metrics=['accuracy']
+)
 
 # without normalize data
 h6 = model.fit(x=x2_train, y=y_train, epochs=5, batch_size=128, validation_split=0.2)
