@@ -52,13 +52,14 @@ for r in range(ROWS):
 plt.tight_layout()
 plt.show()
 
+# without normalization data
+x2_train = x_train.reshape(-1, 28,28,1)
+x2_test = x_test.reshape(-1, 28,28,1)
+
 # normalize data
 x_train = x_train.reshape(-1, 28,28,1).astype("float32") / 255.0
 x_test = x_test.reshape(-1, 28,28,1).astype("float32") / 255.0
 
-# without normalization data
-x2_train = x_train.reshape(-1, 28,28,1)
-x2_test = x_test.reshape(-1, 28,28,1)
 
 # print shape
 print(f"Shape of x_train: {x_train.shape}")
@@ -242,7 +243,9 @@ for r in range(ROWS):
 plt.tight_layout()
 plt.show()
 
-"""##**SGD Optimizer**
+"""##**Test accuracy with normalized data is  Test accuracy: 0.9901000261306763 and without normalized data is Test accuracy: 0.9894999861717224 so we can see that with normalized data we get more accurate ouput**
+
+##**SGD Optimizer**
 
 #Normalized Data
 """
